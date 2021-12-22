@@ -23,86 +23,72 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.r2g.dto.ConsultaListaExamenDTO;
 import com.r2g.exception.ModeloNotFoundException;
-import com.r2g.model.Paciente;
-import com.r2g.service.IPacienteService;
-
+import com.r2g.model.Consulta;
+import com.r2g.service.IConsultaService;
+//heteosas minu 44
 @RestController
-@RequestMapping("/pacientes")
-public class PacienteController {
+@RequestMapping("/consultas")
+public class ConsultaController {
 
 	@Autowired
-	private IPacienteService service;
+	private IConsultaService service;
 
 	@GetMapping
-	/*
-	 * public List<Paciente> listar() { return service.listar(); }
-	 */
-	public ResponseEntity<List<Paciente>> listar() throws Exception {
-		List<Paciente> lista = service.listar();
+	
+	public ResponseEntity<List<Consulta>> listar() throws Exception {
+		List<Consulta> lista = service.listar();
 
-		return new ResponseEntity<List<Paciente>>(lista, HttpStatus.OK);
+		return new ResponseEntity<List<Consulta>>(lista, HttpStatus.OK);
 	}
 
-	/*
-	 * @GetMapping("/{id}") public Paciente listarPorId(@PathVariable("id") Integer
-	 * id) { return service.listarPorId(id); }
-	 */
-
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<Paciente> listarPorId(@PathVariable("id") Integer id) throws Exception {
-		Paciente obj = service.listarPorId(id);
-		if (obj.getIdPaciente() == null) {
+	public ResponseEntity<Consulta> listarPorId(@PathVariable("id") Integer id) throws Exception {
+		Consulta obj = service.listarPorId(id);
+		if (obj.getIdConsulta() == null) {
 			throw new ModeloNotFoundException("ID NO ENCONTRADO " + id);
 		}
-		return new ResponseEntity<Paciente>(obj, HttpStatus.OK);
+		return new ResponseEntity<Consulta>(obj, HttpStatus.OK);
 	}
 
 	@GetMapping("/heteoas/{id}")
-	public EntityModel<Paciente> listarPorIdHateoas(@PathVariable("id") Integer id) throws Exception {
-		Paciente obj = service.listarPorId(id);
+	public EntityModel<Consulta> listarPorIdHateoas(@PathVariable("id") Integer id) throws Exception {
+		Consulta obj = service.listarPorId(id);
 		if (obj == null) {
 			throw new ModeloNotFoundException("ID NO ENCONTRADO " + id);
 		}
 
-		EntityModel<Paciente> recurso = EntityModel.of(obj);
+		EntityModel<Consulta> recurso = EntityModel.of(obj);
 		
 		WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).listarPorId(id));
 
-		recurso.add(linkTo.withRel("paciente-recurso"));
+		recurso.add(linkTo.withRel("Consulta-recurso"));
 		
 		return recurso;
 	}
-
-	/*
-	 * @PostMapping public Paciente registrar(@Valid @RequestBody Paciente p) {
-	 * return service.registrar(p); }
-	 */
-	/*
-	 * @PostMapping public ResponseEntity<Paciente> registrar(@Valid @RequestBody
-	 * Paciente p) { Paciente obj = service.registrar(p); return new
-	 * ResponseEntity<Paciente>(obj, HttpStatus.CREATED); }
-	 */
+	
 	/* HETEAOS */
 	@PostMapping
-	public ResponseEntity<Paciente> registrar(@Valid @RequestBody Paciente p) throws Exception {
-		Paciente obj = service.registrar(p);
+	public ResponseEntity<Consulta> registrar(@Valid @RequestBody ConsultaListaExamenDTO p) throws Exception {
+		/*Consulta obj = service.registrar(p);*/
+		Consulta obj = service.registrarTransaccional(p);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(obj.getIdPaciente()).toUri();
+				.buildAndExpand(obj.getIdConsulta()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 
 	@PutMapping
-	public ResponseEntity<Paciente> modificar(@Valid @RequestBody Paciente p) throws Exception {
-		// return service.modificar(p);
-		Paciente obj = service.modificar(p);
-		return new ResponseEntity<Paciente>(obj, HttpStatus.OK);
+	public ResponseEntity<Consulta> modificar(@Valid @RequestBody Consulta p) throws Exception {
+		Consulta obj = service.modificar(p);
+		return new ResponseEntity<Consulta>(obj, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> eliminar(@PathVariable("id") Integer id) throws Exception{
-		Paciente obj = service.listarPorId(id);
-		if (obj.getIdPaciente() == null) {
+		Consulta obj = service.listarPorId(id);
+		if (obj.getIdConsulta() == null) {
 			throw new ModeloNotFoundException("ID NO ENCONTRADO " + id);
 		}
 		service.eliminar(id);

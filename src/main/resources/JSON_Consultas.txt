@@ -1,0 +1,11 @@
+{
+"paciente":{"idPaciente":1},
+"medico":{"idMedico":1},
+"especialidad":{"idEspecialidad":1},
+"numConsultorio":"C1",
+"fecha":"2021-12-17T15:49:00.000Z",
+"detalleConsulta":[
+    {"diagnostico":"FIEBRE","tratamiento":"PARACETAMOL"},
+   {"diagnostico":"AMIGDALITIS","tratamiento":"ANTIBIOTICOS"}
+]
+}

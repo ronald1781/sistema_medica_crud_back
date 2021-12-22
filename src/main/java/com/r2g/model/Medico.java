@@ -23,9 +23,9 @@ public class Medico {
 	@Column(name="apellidos",nullable=false,length=70)
 	private String apellidos;
 
-	@Column(name="CPM",nullable=false,length=12)
-	private String CPM;
-	
+	@Column(name="CMP",nullable=false,length=12)
+	private String cmp;	
+
 	@Column(name="fotoUrl",nullable=false)
 	private String fotoUrl;
 	
@@ -47,12 +47,7 @@ public class Medico {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-	public String getCPM() {
-		return CPM;
-	}
-	public void setCPM(String cPM) {
-		CPM = cPM;
-	}
+
 	public String getFotoUrl() {
 		return fotoUrl;
 	}
@@ -60,5 +55,11 @@ public class Medico {
 		this.fotoUrl = fotoUrl;
 	}
 	
+	public String getCmp() {
+		return cmp;
+	}
+	public void setCmp(String cmp) {
+		this.cmp = cmp;
+	}
 	
 }

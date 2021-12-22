@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "consulta") // para oracle se pone esquema shema=""
 public class Consulta {
@@ -32,9 +33,9 @@ public class Consulta {
 
 	@ManyToOne
 	@JoinColumn(name = "id_especialidad",nullable = false,foreignKey = @ForeignKey(name="FK_consulta_especilidad"))
-	private Especialidad especilidad;
+	private Especialidad especialidad;
 	
-	@Column(name = "num_consultorio",nullable=false,length = 3)
+	@Column(name = "num_consultorio",nullable=true,length = 3)
 	private String numConsultorio;
 	
 	@Column(name="fecha",nullable = false)
@@ -67,12 +68,12 @@ public class Consulta {
 		this.medico = medico;
 	}
 
-	public Especialidad getEspecilidad() {
-		return especilidad;
+	public Especialidad getEspecialidad() {
+		return especialidad;
 	}
 
-	public void setEspecilidad(Especialidad especilidad) {
-		this.especilidad = especilidad;
+	public void setEspecialidad(Especialidad especialidad) {
+		this.especialidad = especialidad;
 	}
 
 	public String getNumConsultorio() {
@@ -97,6 +98,31 @@ public class Consulta {
 
 	public void setDetalleConsulta(List<DetalleConsulta> detalleConsulta) {
 		this.detalleConsulta = detalleConsulta;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idConsulta == null) ? 0 : idConsulta.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Consulta other = (Consulta) obj;
+		if (idConsulta == null) {
+			if (other.idConsulta != null)
+				return false;
+		} else if (!idConsulta.equals(other.idConsulta))
+			return false;
+		return true;
 	}
 	
 	//1 objecto (consulta -> Lista<etalleConsulta> Lista

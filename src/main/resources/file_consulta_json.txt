@@ -1,0 +1,33 @@
+
+
+{
+"paciente":{"idPaciente":1},
+"medico":{"idMedico":5},
+"especialidad":{"idEspecialidad":1},
+"numConsultorio":"C1",
+"fecha":"2021-12-17T15:49:00.000Z",
+"detalleConsulta":[
+    {"diagnostico":"FIEBRE","tratamiento":"PARACETAMOL"},
+   {"diagnostico":"AMIGDALITIS","tratamiento":"ANTIBIOTICOS"}
+]
+}
+
+otra forma de registrar multi tablas dependientes y en cascada
+
+{
+    "consulta":{
+"paciente":{"idPaciente":1},
+"medico":{"idMedico":5},
+"especialidad":{"idEspecialidad":1},
+"numConsultorio":"C1",
+"fecha":"2021-12-17T15:49:00.000Z",
+"detalleConsulta":[
+    {"diagnostico":"FIEBRE","tratamiento":"PARACETAMOL"},
+   {"diagnostico":"AMIGDALITIS","tratamiento":"ANTIBIOTICOS"}
+]
+},
+"lstExamen":[
+    {"idExamen":1},
+    {"idExamen":2}
+]
+}
